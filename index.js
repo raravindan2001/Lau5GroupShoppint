@@ -1,4 +1,8 @@
-require('dotenv').config();
+// 1. Load environment variables (Safe check)
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -14,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 // --- DATABASE CONNECTION ---
+// This connects to the MongoDB URI you set in Render Dashboard
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log("DB Error:", err));
@@ -90,25 +95,7 @@ io.on('connection', (socket) => {
     io.to(groupId).emit('group_update', { message: "New user joined!" });
   });
 });
-{
-  "name": "group-buy-backend",
-  "version": "1.0.0",
-  "description": "Backend for Group Buying App",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "mongoose": "^7.0.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "razorpay": "^2.8.6",
-    "socket.io": "^4.6.1"
-  },
-  "engines": {
-    "node": ">=16.0.0"
-  }
-}
+
+// --- START SERVER ---
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
