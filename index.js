@@ -90,6 +90,25 @@ io.on('connection', (socket) => {
     io.to(groupId).emit('group_update', { message: "New user joined!" });
   });
 });
-
+{
+  "name": "group-buy-backend",
+  "version": "1.0.0",
+  "description": "Backend for Group Buying App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "razorpay": "^2.8.6",
+    "socket.io": "^4.6.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
